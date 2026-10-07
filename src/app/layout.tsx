@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Big_Shoulders, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 const displayFont = Big_Shoulders({
   subsets: ["latin"],
@@ -23,7 +25,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
