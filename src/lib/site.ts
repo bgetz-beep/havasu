@@ -1,14 +1,22 @@
+function normalizeUrl(raw: string | undefined, fallback: string): string {
+  const value = raw?.trim();
+  if (!value) return fallback;
+  if (/^https?:\/\//i.test(value)) return value.replace(/\/$/, "");
+  return `https://${value.replace(/\/$/, "")}`;
+}
+
 export const siteConfig = {
   name: "Havasu Stampede",
   shortName: "Stampede",
   tagline: "PRCA Rodeo in Lake Havasu City, Arizona",
   description:
     "The Havasu Stampede is a PRCA-sanctioned professional rodeo in Lake Havasu City, Arizona. Three nights of bull riding, barrel racing, mutton busting, and live music, March 19-21, 2027.",
-  url:
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.NODE_ENV === "production"
+  url: normalizeUrl(
+    process.env.NEXT_PUBLIC_SITE_URL,
+    process.env.NODE_ENV === "production"
       ? "https://havasustampede.com"
-      : "http://localhost:3000"),
+      : "http://localhost:3000"
+  ),
   twitter: "@havasustampede",
   locale: "en_US",
 };
