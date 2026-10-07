@@ -1,11 +1,28 @@
+import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
 import { ExternalLink } from "@/components/primitives/ExternalLink";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getSiteData } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
+import { breadcrumbLd } from "@/lib/jsonld";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Contact",
+  description:
+    "Reach the Havasu Stampede committee. Email, venue address, directions, and social links.",
+  path: "/contact",
+});
 
 export default async function ContactPage() {
   const { event, contact } = await getSiteData();
   return (
     <>
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <PageHero eyebrow="Get in Touch" title="Contact" />
       <section className="bg-cream py-16 px-6 lg:px-16">
         <div className="max-w-3xl mx-auto space-y-10 font-body text-lg">

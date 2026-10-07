@@ -31,6 +31,7 @@ import { sanityConfigured } from "./sanity/client";
 export type NormalizedEvent = {
   dateDisplay: string;
   startDate: string;
+  endDate: string;
   venue: { name: string; address: string; directionsUrl: string };
   prcaSanctioned: boolean;
 };
@@ -85,6 +86,7 @@ function normalizeEvent(doc: EventDoc | null): NormalizedEvent {
     return {
       dateDisplay: mockEvent.dateDisplay,
       startDate: mockEvent.startDate,
+      endDate: mockEvent.endDate,
       venue: mockEvent.venue,
       prcaSanctioned: mockEvent.prcaSanctioned,
     };
@@ -92,6 +94,7 @@ function normalizeEvent(doc: EventDoc | null): NormalizedEvent {
   return {
     dateDisplay: doc.dateDisplay,
     startDate: doc.startDate,
+    endDate: doc.endDate,
     venue: {
       name: doc.venue?.name ?? mockEvent.venue.name,
       address: doc.venue?.address ?? mockEvent.venue.address,
