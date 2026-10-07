@@ -5,6 +5,7 @@ import type { SocialPost } from "./types";
 export type { SocialPost };
 
 export async function fetchSocialPosts(): Promise<SocialPost[]> {
+  "use cache";
   const [fb, ig] = await Promise.all([
     fetchFacebookPosts(3),
     fetchInstagramPosts(3),

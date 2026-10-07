@@ -195,6 +195,7 @@ export type SiteData = {
 };
 
 export async function getSiteData(): Promise<SiteData> {
+  "use cache";
   const [eventDoc, homepageDoc, scheduleDocs, sponsorsDocs, faqDocs, galleryDocs, linksDoc, contactDoc] =
     await Promise.all([
       fetchEvent(),
@@ -226,6 +227,7 @@ export type PortableTextPage = {
 };
 
 export async function getPage(slug: string): Promise<PortableTextPage | null> {
+  "use cache";
   const doc = await fetchPage(slug);
   if (!doc) return null;
   return { title: doc.title, eyebrow: doc.eyebrow, body: doc.body };
