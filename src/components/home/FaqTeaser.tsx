@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { mockFaq } from "@/lib/mock/faq";
+import type { NormalizedFaq } from "@/lib/data";
 
-export function FaqTeaser() {
+export function FaqTeaser({ faqs }: { faqs: NormalizedFaq[] }) {
+  const items = faqs.slice(0, 5);
+  if (items.length === 0) return null;
   return (
     <section className="bg-cream border-b-2 border-charcoal py-20 px-6">
       <div className="max-w-4xl mx-auto">
@@ -10,7 +12,7 @@ export function FaqTeaser() {
         </p>
         <h2 className="font-display text-5xl md:text-7xl mt-4 mb-12">FAQ</h2>
         <div className="divide-y-2 divide-charcoal border-y-2 border-charcoal">
-          {mockFaq.slice(0, 5).map((item) => (
+          {items.map((item) => (
             <details key={item.question} className="group py-6">
               <summary className="flex justify-between items-start cursor-pointer list-none">
                 <span className="font-display text-2xl md:text-3xl flex-1 pr-6">
@@ -20,7 +22,9 @@ export function FaqTeaser() {
                   +
                 </span>
               </summary>
-              <p className="font-body text-base mt-4 pr-10">{item.answer}</p>
+              <p className="font-body text-base mt-4 pr-10 whitespace-pre-line">
+                {item.answer}
+              </p>
             </details>
           ))}
         </div>

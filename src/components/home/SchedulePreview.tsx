@@ -1,17 +1,18 @@
 import Link from "next/link";
-import { mockSchedule } from "@/lib/mock/schedule";
+import type { NormalizedScheduleDay } from "@/lib/data";
 
 const DAY_BG = ["bg-terracotta", "bg-turquoise", "bg-ochre"];
 
-export function SchedulePreview() {
+export function SchedulePreview({ scheduleDays }: { scheduleDays: NormalizedScheduleDay[] }) {
+  const days = scheduleDays.slice(0, 3);
   return (
     <section className="border-y-2 border-charcoal">
       <div className="grid grid-cols-1 lg:grid-cols-3">
-        {mockSchedule.map((day, i) => (
+        {days.map((day, i) => (
           <div
             key={day.dayLabel}
-            className={`${DAY_BG[i]} text-cream p-10 min-h-[380px] ${
-              i < 2
+            className={`${DAY_BG[i % DAY_BG.length]} text-cream p-10 min-h-[380px] ${
+              i < days.length - 1
                 ? "border-b-2 lg:border-b-0 lg:border-r-2 border-charcoal"
                 : ""
             }`}
@@ -23,7 +24,7 @@ export function SchedulePreview() {
               {day.dayLabel.toUpperCase()}
             </h3>
             <ul className="mt-8 space-y-3">
-              {day.items.map((item) => (
+              {day.items.slice(0, 3).map((item) => (
                 <li
                   key={item.time}
                   className="flex justify-between gap-4 border-b border-cream/40 pb-2"

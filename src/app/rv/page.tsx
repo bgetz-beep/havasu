@@ -1,6 +1,8 @@
 import { PageHero } from "@/components/layout/PageHero";
+import { getSiteData } from "@/lib/data";
 
-export default function RvPage() {
+export default async function RvPage() {
+  const { links } = await getSiteData();
   return (
     <>
       <PageHero eyebrow="RV Information" title="Stay at the Grounds" />
@@ -16,7 +18,7 @@ export default function RvPage() {
             current pricing.
           </p>
           <a
-            href="https://example.com/rv-reservation"
+            href={links.rvReservationUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block mt-8 bg-turquoise text-cream px-8 py-5 font-display text-2xl hover:bg-ochre transition-colors"

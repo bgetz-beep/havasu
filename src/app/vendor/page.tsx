@@ -1,6 +1,8 @@
 import { PageHero } from "@/components/layout/PageHero";
+import { getSiteData } from "@/lib/data";
 
-export default function VendorPage() {
+export default async function VendorPage() {
+  const { links } = await getSiteData();
   return (
     <>
       <PageHero eyebrow="Vendor Information" title="Sell at the Stampede" />
@@ -16,7 +18,7 @@ export default function VendorPage() {
             application packet.
           </p>
           <a
-            href="https://example.com/vendor-application"
+            href={links.vendorApplicationUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block mt-8 bg-terracotta text-cream px-8 py-5 font-display text-2xl hover:bg-ochre transition-colors"

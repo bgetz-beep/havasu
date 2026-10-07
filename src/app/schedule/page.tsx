@@ -1,13 +1,14 @@
 import { PageHero } from "@/components/layout/PageHero";
-import { mockSchedule } from "@/lib/mock/schedule";
+import { getSiteData } from "@/lib/data";
 
-export default function SchedulePage() {
+export default async function SchedulePage() {
+  const { schedule } = await getSiteData();
   return (
     <>
       <PageHero eyebrow="Three Days" title="Full Schedule" />
       <section className="bg-cream py-16 px-6 lg:px-16">
         <div className="max-w-5xl mx-auto space-y-16">
-          {mockSchedule.map((day) => (
+          {schedule.map((day) => (
             <div key={day.dayLabel} className="border-t-2 border-charcoal pt-6">
               <p className="font-body text-sm uppercase tracking-widest">
                 {day.date}

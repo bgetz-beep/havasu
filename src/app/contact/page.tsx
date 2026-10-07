@@ -1,8 +1,9 @@
 import { PageHero } from "@/components/layout/PageHero";
 import { ExternalLink } from "@/components/primitives/ExternalLink";
-import { mockEvent } from "@/lib/mock/event";
+import { getSiteData } from "@/lib/data";
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const { event, contact } = await getSiteData();
   return (
     <>
       <PageHero eyebrow="Get in Touch" title="Contact" />
@@ -13,22 +14,33 @@ export default function ContactPage() {
               Email
             </p>
             <a
-              href="mailto:info@havasustampede.com"
+              href={`mailto:${contact.email}`}
               className="font-display text-3xl underline underline-offset-4"
             >
-              info@havasustampede.com
+              {contact.email}
             </a>
           </div>
+          {contact.phone && (
+            <div>
+              <p className="font-body text-sm uppercase tracking-widest text-charcoal/70">
+                Phone
+              </p>
+              <a
+                href={`tel:${contact.phone.replace(/\s/g, "")}`}
+                className="font-display text-3xl underline underline-offset-4"
+              >
+                {contact.phone}
+              </a>
+            </div>
+          )}
           <div>
             <p className="font-body text-sm uppercase tracking-widest text-charcoal/70">
               Venue
             </p>
-            <p className="font-display text-2xl mt-1">
-              {mockEvent.venue.name}
-            </p>
-            <p className="mt-1">{mockEvent.venue.address}</p>
+            <p className="font-display text-2xl mt-1">{event.venue.name}</p>
+            <p className="mt-1">{event.venue.address}</p>
             <a
-              href={mockEvent.venue.directionsUrl}
+              href={event.venue.directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block mt-2 underline underline-offset-4"
@@ -41,16 +53,10 @@ export default function ContactPage() {
               Follow
             </p>
             <div className="flex gap-6 mt-2">
-              <ExternalLink
-                href="https://www.facebook.com/lakehavasustampede"
-                className="font-display text-2xl"
-              >
+              <ExternalLink href={contact.facebookUrl} className="font-display text-2xl">
                 Facebook
               </ExternalLink>
-              <ExternalLink
-                href="https://www.instagram.com/"
-                className="font-display text-2xl"
-              >
+              <ExternalLink href={contact.instagramUrl} className="font-display text-2xl">
                 Instagram
               </ExternalLink>
             </div>

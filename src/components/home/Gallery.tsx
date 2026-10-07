@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { mockGallery } from "@/lib/mock/gallery";
+import type { NormalizedGalleryImage } from "@/lib/data";
 
-export function Gallery() {
+export function Gallery({ images }: { images: NormalizedGalleryImage[] }) {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const close = () => setActiveIdx(null);
-  const active = activeIdx !== null ? mockGallery[activeIdx] : null;
+  const active = activeIdx !== null ? images[activeIdx] : null;
 
   useEffect(() => {
     if (active === null) return;
@@ -21,6 +21,8 @@ export function Gallery() {
     };
   }, [active]);
 
+  if (images.length === 0) return null;
+
   return (
     <section className="bg-charcoal border-b-2 border-charcoal py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -31,7 +33,7 @@ export function Gallery() {
           FROM THE ARENA
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-          {mockGallery.map((img, idx) => {
+          {images.slice(0, 6).map((img, idx) => {
             const colSpan =
               img.orientation === "landscape"
                 ? "md:col-span-3"

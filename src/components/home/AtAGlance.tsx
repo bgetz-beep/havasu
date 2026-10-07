@@ -1,8 +1,12 @@
-export function AtAGlance() {
+import type { NormalizedEvent } from "@/lib/data";
+
+export function AtAGlance({ event }: { event: NormalizedEvent }) {
   const statements = [
-    "PRCA Sanctioned Rodeo",
-    "March 19-21, 2027",
-    "Lake Havasu City, Arizona",
+    event.prcaSanctioned ? "PRCA Sanctioned Rodeo" : "Professional Rodeo",
+    event.dateDisplay,
+    event.venue.name && event.venue.address
+      ? `${event.venue.name.split(",")[0]}`
+      : "Lake Havasu City, Arizona",
   ];
   return (
     <section className="bg-cream py-20 px-6">

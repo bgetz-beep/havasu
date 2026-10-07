@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { NAV_ITEMS } from "@/lib/nav";
 
-export function MobileMenu() {
+export function MobileMenu({ ticketsUrl }: { ticketsUrl?: string }) {
   const [open, setOpen] = useState(false);
+  const items = NAV_ITEMS.map((item) =>
+    item.label === "Tickets" && ticketsUrl ? { ...item, href: ticketsUrl } : item
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -34,7 +37,7 @@ export function MobileMenu() {
             </button>
           </div>
           <nav className="flex flex-col p-6 gap-6">
-            {NAV_ITEMS.map((item) => (
+            {items.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}

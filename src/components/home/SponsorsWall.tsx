@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { mockSponsors, type SponsorTier } from "@/lib/mock/sponsors";
+import type { NormalizedSponsor } from "@/lib/data";
 
-const TIER_ORDER: SponsorTier[] = ["Title", "Gold", "Silver"];
+const TIER_ORDER = ["Title", "Gold", "Silver"] as const;
 
-export function SponsorsWall() {
+export function SponsorsWall({ sponsors }: { sponsors: NormalizedSponsor[] }) {
   return (
     <section className="bg-cream border-b-2 border-charcoal py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -12,7 +12,7 @@ export function SponsorsWall() {
           PROUDLY SPONSORED BY
         </h2>
         {TIER_ORDER.map((tier) => {
-          const inTier = mockSponsors.filter((s) => s.tier === tier);
+          const inTier = sponsors.filter((s) => s.tier === tier);
           if (inTier.length === 0) return null;
           return (
             <div key={tier} className="mb-12">

@@ -2,12 +2,15 @@
 import { useEffect, useState } from "react";
 import { getTimeUntil } from "@/lib/countdown";
 
+const ZERO = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
 export function Countdown({ targetIso }: { targetIso: string }) {
-  const target = new Date(targetIso);
-  const [time, setTime] = useState(() => getTimeUntil(target, new Date()));
+  const [time, setTime] = useState(ZERO);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    const target = new Date(targetIso);
+    setTime(getTimeUntil(target, new Date()));
     setMounted(true);
     const id = setInterval(() => setTime(getTimeUntil(target, new Date())), 1000);
     return () => clearInterval(id);

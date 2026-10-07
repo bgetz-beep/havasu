@@ -1,4 +1,4 @@
-export function TicketsBlock() {
+export function TicketsBlock({ ticketsUrl }: { ticketsUrl: string }) {
   return (
     <section className="bg-charcoal text-cream border-b-2 border-charcoal">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-6 lg:px-16 py-20 max-w-7xl mx-auto">
@@ -16,7 +16,7 @@ export function TicketsBlock() {
         </div>
         <div className="flex items-center justify-center lg:justify-end">
           <a
-            href="https://www.rodeoticket.com/"
+            href={ticketsUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-terracotta text-cream px-10 py-8 font-display text-3xl md:text-4xl hover:bg-ochre transition-colors"

@@ -1,8 +1,9 @@
 import { PageHero } from "@/components/layout/PageHero";
-import { mockFaq } from "@/lib/mock/faq";
+import { getSiteData } from "@/lib/data";
 
-export default function FaqPage() {
-  const categories = Array.from(new Set(mockFaq.map((f) => f.category)));
+export default async function FaqPage() {
+  const { faq } = await getSiteData();
+  const categories = Array.from(new Set(faq.map((f) => f.category)));
   return (
     <>
       <PageHero eyebrow="Common Questions" title="FAQ" />
@@ -12,7 +13,7 @@ export default function FaqPage() {
             <div key={cat} className="border-t-2 border-charcoal pt-6">
               <h2 className="font-display text-3xl">{cat.toUpperCase()}</h2>
               <div className="mt-6 divide-y-2 divide-charcoal">
-                {mockFaq
+                {faq
                   .filter((f) => f.category === cat)
                   .map((f) => (
                     <details key={f.question} className="py-4 group">
@@ -22,7 +23,9 @@ export default function FaqPage() {
                           +
                         </span>
                       </summary>
-                      <p className="font-body text-base mt-3">{f.answer}</p>
+                      <p className="font-body text-base mt-3 whitespace-pre-line">
+                        {f.answer}
+                      </p>
                     </details>
                   ))}
               </div>

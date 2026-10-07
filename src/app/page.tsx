@@ -6,18 +6,22 @@ import { TicketsBlock } from "@/components/home/TicketsBlock";
 import { SponsorsWall } from "@/components/home/SponsorsWall";
 import { Gallery } from "@/components/home/Gallery";
 import { FaqTeaser } from "@/components/home/FaqTeaser";
+import { getSiteData } from "@/lib/data";
 
-export default function Home() {
+export default async function Home() {
+  const data = await getSiteData();
+  const countdownTarget = `${data.event.startDate}T18:00:00-07:00`;
+
   return (
     <>
-      <Hero />
-      <Countdown targetIso="2027-03-19T18:00:00-07:00" />
-      <AtAGlance />
-      <SchedulePreview />
-      <TicketsBlock />
-      <SponsorsWall />
-      <Gallery />
-      <FaqTeaser />
+      <Hero event={data.event} hero={data.hero} />
+      <Countdown targetIso={countdownTarget} />
+      <AtAGlance event={data.event} />
+      <SchedulePreview scheduleDays={data.schedule} />
+      <TicketsBlock ticketsUrl={data.links.ticketsUrl} />
+      <SponsorsWall sponsors={data.sponsors} />
+      <Gallery images={data.gallery} />
+      <FaqTeaser faqs={data.faq} />
     </>
   );
 }
