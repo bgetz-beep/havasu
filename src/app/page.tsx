@@ -5,11 +5,16 @@ import { SchedulePreview } from "@/components/home/SchedulePreview";
 import { TicketsBlock } from "@/components/home/TicketsBlock";
 import { SponsorsWall } from "@/components/home/SponsorsWall";
 import { Gallery } from "@/components/home/Gallery";
+import { SocialWall } from "@/components/home/SocialWall";
 import { FaqTeaser } from "@/components/home/FaqTeaser";
 import { getSiteData } from "@/lib/data";
+import { fetchSocialPosts } from "@/lib/social";
 
 export default async function Home() {
-  const data = await getSiteData();
+  const [data, socialPosts] = await Promise.all([
+    getSiteData(),
+    fetchSocialPosts(),
+  ]);
   const countdownTarget = `${data.event.startDate}T18:00:00-07:00`;
 
   return (
@@ -21,6 +26,7 @@ export default async function Home() {
       <TicketsBlock ticketsUrl={data.links.ticketsUrl} />
       <SponsorsWall sponsors={data.sponsors} />
       <Gallery images={data.gallery} />
+      <SocialWall posts={socialPosts} contact={data.contact} />
       <FaqTeaser faqs={data.faq} />
     </>
   );
